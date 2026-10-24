@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lindas Studio | Salón de Uñas & Peluquería Femenina en Zaragoza</title>
+<title>Lindas Studio | Salón de Uñas & Estética en Zaragoza</title>
 
 <!-- FUENTES GOOGLE FONTS -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,9 +14,8 @@
 :root {
     --primary: #ff2d8f;
     --primary-dark: #d81b75;
-    --primary-gradient: linear-gradient(135deg, #ff53b0 0%, #ff2d8f 50%, #7b00ff 100%);
-    --hair-gradient: linear-gradient(135deg, #ff2d8f 0%, #9013fe 100%);
-    --bg-color: #fff2f8;
+    --primary-gradient: linear-gradient(135deg, #ff65b3 0%, #ff2d8f 50%, #9013fe 100%);
+    --bg-color: #fff4f8;
     --card-bg: #ffffff;
 }
 
@@ -40,19 +38,19 @@ body{
 body::before, body::after {
     content: '';
     position: fixed;
-    width: 420px;
-    height: 420px;
+    width: 380px;
+    height: 380px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 45, 143, 0.18) 0%, rgba(255, 255, 255, 0) 70%);
+    background: radial-gradient(circle, rgba(255, 45, 143, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
     z-index: -1;
     animation: floatBg 12s infinite alternate ease-in-out;
 }
-body::before { top: -80px; left: -80px; }
-body::after { bottom: 5%; right: -80px; animation-delay: -6s; }
+body::before { top: -50px; left: -50px; }
+body::after { bottom: 10%; right: -50px; animation-delay: -6s; }
 
 @keyframes floatBg {
     0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(90px, 90px) scale(1.3); }
+    100% { transform: translate(80px, 80px) scale(1.3); }
 }
 
 /* HEADER PREMIUM CON CURVA */
@@ -61,53 +59,55 @@ header{
     background: var(--primary-gradient);
     color: white;
     text-align: center;
-    padding: 90px 20px 140px 20px;
+    padding: 80px 20px 130px 20px;
     clip-path: ellipse(160% 100% at 50% 0%);
-    box-shadow: 0 20px 40px rgba(255, 45, 143, 0.35);
+    box-shadow: 0 15px 35px rgba(255, 45, 143, 0.35);
 }
 
 .header-badge {
     display: inline-block;
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
-    padding: 8px 26px;
+    padding: 6px 22px;
     border-radius: 30px;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    animation: fadeInDown 0.8s ease-out;
 }
 
 header h1{
     font-family: 'Playfair Display', serif;
-    font-size: 66px;
+    font-size: 62px;
     font-weight: 800;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    text-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    animation: fadeInDown 1s ease-out;
 }
 
 header p{
-    margin-top: 12px;
-    font-size: 21px;
+    margin-top: 10px;
+    font-size: 20px;
     font-weight: 300;
-    opacity: 0.98;
+    opacity: 0.95;
+    animation: fadeInUp 1s ease-out 0.2s backwards;
 }
 
 /* MENÚ FLOATING Y GLASSMORPHISM */
 nav{
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(15px);
     display: flex;
     justify-content: center;
     gap: 30px;
     padding: 16px;
-    box-shadow: 0 10px 30px rgba(255, 45, 143, 0.12);
+    box-shadow: 0 10px 30px rgba(255, 45, 143, 0.1);
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 2px solid rgba(255, 180, 215, 0.5);
+    border-bottom: 1px solid rgba(255, 208, 228, 0.4);
 }
 
 nav a{
@@ -140,6 +140,14 @@ section{
     max-width: 1150px;
     margin: auto;
     padding: 60px 20px;
+    animation: revealSection linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 30%;
+}
+
+@keyframes revealSection {
+    from { opacity: 0; transform: translateY(40px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 h2{
@@ -147,15 +155,14 @@ h2{
     color: var(--primary-dark);
     text-align: center;
     margin-bottom: 40px;
-    font-size: 40px;
+    font-size: 38px;
     position: relative;
 }
 
-/* SERVICIOS CON TARJETAS CENTRADAS */
+/* SERVICIOS */
 .tarjetas{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 22px;
 }
 
@@ -164,37 +171,25 @@ h2{
     border-radius: 24px;
     padding: 32px 22px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(255, 45, 143, 0.08);
-    border: 1px solid rgba(255, 208, 228, 0.7);
+    box-shadow: 0 10px 30px rgba(255, 45, 143, 0.06);
+    border: 1px solid rgba(255, 208, 228, 0.6);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    flex: 1 1 220px;
-    max-width: 320px;
 }
 
 .tarjeta:hover{
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(255, 45, 143, 0.22);
+    box-shadow: 0 20px 40px rgba(255, 45, 143, 0.18);
     border-color: var(--primary);
-}
-
-.tarjeta.peluqueria-card {
-    background: linear-gradient(145deg, #ffffff 0%, #fbf0ff 100%);
-    border: 1.5px solid #b34bfb;
-    box-shadow: 0 10px 30px rgba(144, 19, 254, 0.12);
-}
-
-.tarjeta.peluqueria-card h3 {
-    color: #8a13fe;
 }
 
 .tarjeta h3{ color: var(--primary); margin-bottom: 10px; font-size: 21px; }
 .tarjeta p { color: #666; font-size: 14px; line-height: 1.5; }
 
-/* GALERÍA MODIFICADA A GRID DE 2 COLUMNAS PARA MEJOR VISTA */
+/* GALERÍA */
 .galeria{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
 }
 
 .galeria-item {
@@ -203,28 +198,27 @@ h2{
     box-shadow: 0 12px 25px rgba(0,0,0,0.08);
     border: 4px solid #fff;
     position: relative;
-    background: #fff;
 }
 
 .galeria img{
     width: 100%;
-    height: 380px;
+    height: 320px;
     object-fit: cover;
     display: block;
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.galeria-item:hover img{ transform: scale(1.05); }
+.galeria-item:hover img{ transform: scale(1.1); }
 
 /* SECCIÓN PRECIOS ESPECTACULAR */
 .categoria{
     margin-bottom: 45px;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(10px);
     padding: 35px 22px;
     border-radius: 28px;
     border: 1px solid rgba(255, 255, 255, 0.9);
-    box-shadow: 0 12px 30px rgba(255, 45, 143, 0.06);
+    box-shadow: 0 12px 30px rgba(255, 45, 143, 0.05);
 }
 
 .categoria h3{
@@ -235,22 +229,9 @@ h2{
     margin-bottom: 25px;
 }
 
-.categoria.peluqueria-seccion {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 230, 255, 0.6) 100%);
-    border: 1.5px solid #c263ff;
-    box-shadow: 0 15px 35px rgba(144, 19, 254, 0.12);
-}
-
-.categoria.peluqueria-seccion h3 {
-    color: #8a13fe;
-    font-size: 26px;
-    font-weight: 800;
-}
-
 .lista-precios{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
 }
 
@@ -270,8 +251,6 @@ h2{
     clip-path: ellipse(150% 100% at 50% 0%);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    flex: 1 1 200px;
-    max-width: 280px;
 }
 
 .precio::before {
@@ -288,19 +267,6 @@ h2{
 .precio:hover{
     transform: translateY(-8px) scale(1.03);
     box-shadow: 0 18px 36px rgba(255, 45, 143, 0.45);
-}
-
-.precio.hair-card {
-    background: var(--hair-gradient);
-    box-shadow: 0 10px 22px rgba(123, 0, 255, 0.3);
-}
-
-.precio.hair-card:hover {
-    box-shadow: 0 18px 38px rgba(123, 0, 255, 0.5);
-}
-
-.precio.hair-card .cantidad {
-    color: #8000ff;
 }
 
 .precio .nombre{
@@ -332,11 +298,11 @@ h2{
 
 /* CONTACTO */
 .contacto-container {
-    background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(255,208,228,0.5) 100%);
+    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,208,228,0.4) 100%);
     border-radius: 35px;
     padding: 45px 25px;
-    border: 2px solid #fff;
-    box-shadow: 0 15px 35px rgba(255, 45, 143, 0.1);
+    border: 1px solid #fff;
+    box-shadow: 0 15px 35px rgba(255, 45, 143, 0.08);
 }
 
 .contacto-info {
@@ -369,7 +335,59 @@ h2{
     background: #1eb956;
 }
 
-/* BOTÓN FLOTANTE WHATSAPP */
+
+/* FORMULARIO DE CITA */
+.form-cita{
+    max-width: 560px;
+    margin: 10px auto 0;
+    display: grid;
+    gap: 16px;
+    text-align: left;
+}
+.form-cita label{
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 6px;
+}
+.form-cita input, .form-cita select, .form-cita textarea{
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 16px;
+    border: 2px solid rgba(255, 45, 143, 0.25);
+    background: #fff;
+    font-size: 15px;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.form-cita input:focus, .form-cita select:focus, .form-cita textarea:focus{
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(255, 45, 143, 0.12);
+}
+.form-cita .fila{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.form-cita button.boton{
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 6px;
+}
+.nota-form{
+    text-align: center;
+    font-size: 13px;
+    color: #777;
+    margin-top: 14px;
+}
+@media(max-width:700px){
+    .form-cita .fila{ grid-template-columns: 1fr; }
+}
+
+/* BOTÓN FLOTANTE RESERVAR */
 .float-whatsapp {
     position: fixed;
     bottom: 25px;
@@ -404,35 +422,38 @@ footer{
     font-size: 14px;
 }
 
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
 @media(max-width:700px){
-    header h1{ font-size: 44px; }
+    header h1{ font-size: 40px; }
     nav{ gap: 12px; flex-wrap: wrap; padding: 12px; }
     nav a{ font-size: 13px; }
     .galeria{ grid-template-columns: 1fr; }
-    .galeria img{ height: 320px; }
-    .precio, .tarjeta { max-width: 100%; flex: 1 1 100%; }
+    .galeria img{ height: 300px; }
+    .lista-precios { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 }
 </style>
 </head>
 
 <body>
 
-<!-- BOTÓN FLOTANTE SIEMPRE VISIBLE -->
-<a href="https://wa.me/34745002502?text=Hola%20Lindas%20Studio%2C%20quiero%20reservar%20una%20cita." class="float-whatsapp" target="_blank">
-    💬 Reservar Cita
+<!-- BOTÓN FLOTANTE SIEMPRE VISIBLE (lleva al formulario de cita) -->
+<a href="#contacto" class="float-whatsapp">
+    📅 Pedir cita
 </a>
 
 <header>
-    <span class="header-badge">Estética & Peluquería Femenina</span>
+    <span class="header-badge">Salón de Belleza Profesional</span>
     <h1>💅 Lindas Studio</h1>
-    <p>Especialistas en la salud y belleza de tus uñas y cabello.</p>
+    <p>Especialistas en la salud y belleza de tus uñas.</p>
 </header>
 
 <nav>
     <a href="#servicios">Servicios</a>
     <a href="#galeria">Galería</a>
     <a href="#precios">Precios</a>
-    <a href="#contacto">Contacto</a>
+    <a href="#contacto">Pedir cita</a>
 </nav>
 
 <!-- SERVICIOS -->
@@ -455,10 +476,6 @@ footer{
             <h3>🎨 Nail Art</h3>
             <p>Mano alzada, cristales, degradados y diseños personalizados.</p>
         </div>
-        <div class="tarjeta peluqueria-card">
-            <h3>💇‍♀️ Peluquería Femenina</h3>
-            <p>Cortes, peinados, alisados, tintes y cuidado capilar completo para mujer.</p>
-        </div>
     </div>
 </section>
 
@@ -467,16 +484,13 @@ footer{
     <h2>Galería de Trabajos</h2>
     <div class="galeria">
         <div class="galeria-item">
-            <img src="1lindas.PNG" alt="Diseño manicura francesa con lunares">
+            <img src="1lindas.png" alt="Diseño manicura francesa con lunares">
         </div>
         <div class="galeria-item">
-            <img src="2linadas.PNG" alt="Nail art con diseño telaraña y tonos rojos">
+            <img src="2linadas.png" alt="Nail art con diseño telaraña y tonos rojos">
         </div>
         <div class="galeria-item">
-            <img src="3linadas.PNG" alt="Esmaltado tono rosado satinado con brillo">
-        </div>
-        <div class="galeria-item">
-            <img src="4linadas.PNG" alt="Manicura francesa negra y detalle animal print">
+            <img src="3lindas.png" alt="Esmaltado tono rosado satinado con brillo">
         </div>
     </div>
 </section>
@@ -581,37 +595,37 @@ footer{
         </div>
     </div>
 
-    <div class="categoria peluqueria-seccion">
-        <div class="categoria peluqueria-seccion">
-    <h3>💇‍♀️ PELUQUERÍA PARA MUJERES</h3>
-    <div class="lista-precios">
-        <div class="precio hair-card">
-            <div class="nombre">Corte de mujer</div>
-            <div class="cantidad">10 €</div>
-        </div>
-        <div class="precio hair-card">
-            <div class="nombre">Cortar, lavar y planchar</div>
-            <div class="cantidad">Desde 30 €</div>
-        </div>
-        <div class="precio hair-card">
-            <div class="nombre">Planchado / Peinado</div>
-            <div class="cantidad">Desde 12 €</div>
-        </div>
-        <div class="precio hair-card">
-            <div class="nombre">Aplicación de tinte<small>Según largo del cabello</small></div>
-            <div class="cantidad">Desde 20 €</div>
-        </div>
-        <div class="precio hair-card">
-            <div class="nombre">Alisados e hidratación</div>
-            <div class="cantidad">Desde 40 €</div>
+    <div class="categoria">
+        <h3>💇‍♀️ PELUQUERÍA</h3>
+        <div class="lista-precios">
+            <div class="precio">
+                <div class="nombre">Corte de mujer</div>
+                <div class="cantidad">10 €</div>
+            </div>
+            <div class="precio">
+                <div class="nombre">Lavar, cortar, planchar</div>
+                <div class="cantidad">20 €</div>
+            </div>
+            <div class="precio">
+                <div class="nombre">Planchado</div>
+                <div class="cantidad">Desde 12 €</div>
+            </div>
+            <div class="precio">
+                <div class="nombre">Aplicación de tinte<small>Según largo</small></div>
+                <div class="cantidad">Desde 20 €</div>
+            </div>
+            <div class="precio">
+                <div class="nombre">Alisados</div>
+                <div class="cantidad">Desde 40 €</div>
+            </div>
         </div>
     </div>
-</div></section>
+</section>
 
-<!-- CONTACTO -->
+<!-- CONTACTO / PEDIR CITA -->
 <section id="contacto">
     <div class="contacto-container">
-        <h2>Reserva tu cita con nosotros</h2>
+        <h2>Pide tu cita</h2>
         <div class="contacto-info">
             <div>
                 <strong>📍 Ubicación</strong>
@@ -622,13 +636,102 @@ footer{
                 <p>+34 745 00 25 02</p>
             </div>
         </div>
-        <div style="text-align: center;">
-            <a class="boton" href="https://wa.me/34745002502?text=Hola%20Lindas%20Studio%2C%20quiero%20reservar%20una%20cita." target="_blank">
-                💬 Agendar cita por WhatsApp
-            </a>
-        </div>
+
+        <form class="form-cita" id="formCita" onsubmit="return false;">
+            <div>
+                <label for="nombre">Tu nombre</label>
+                <input type="text" id="nombre" placeholder="Ej: María" required>
+            </div>
+            <div>
+                <label for="servicio">Servicio</label>
+                <select id="servicio" required>
+                    <option value="">Elige un servicio…</option>
+                    <optgroup label="Manos">
+                        <option>Manicura semipermanente</option>
+                        <option>Manicura base niveladora</option>
+                        <option>Soft gel</option>
+                        <option>Uñas acrílicas / gel</option>
+                        <option>Retirada semipermanente</option>
+                        <option>Retirada acrílico o gel</option>
+                    </optgroup>
+                    <optgroup label="Pies">
+                        <option>Pedicura semipermanente</option>
+                        <option>Pedicura tradicional</option>
+                        <option>Pedicura sin esmaltar</option>
+                        <option>Reconstrucción uña pie</option>
+                    </optgroup>
+                    <optgroup label="Depilación">
+                        <option>Cejas</option>
+                        <option>Labios</option>
+                        <option>Axilas</option>
+                    </optgroup>
+                    <optgroup label="Peluquería">
+                        <option>Corte de mujer</option>
+                        <option>Lavar, cortar, planchar</option>
+                        <option>Planchado</option>
+                        <option>Aplicación de tinte</option>
+                        <option>Alisados</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="fila">
+                <div>
+                    <label for="fecha">Día que te va bien</label>
+                    <input type="date" id="fecha" required>
+                </div>
+                <div>
+                    <label for="hora">Hora</label>
+                    <input type="time" id="hora" required>
+                </div>
+            </div>
+            <div>
+                <label for="comentarios">Comentarios (opcional)</label>
+                <textarea id="comentarios" rows="3" placeholder="Ej: quiero diseño francesa, o traigo una foto de referencia"></textarea>
+            </div>
+            <a id="btnCita" class="boton" href="https://wa.me/34745002502" target="_blank" rel="noopener" onclick="prepararCita(event)" style="text-align:center;">💬 Pedir cita por WhatsApp</a>
+        </form>
+        <p class="nota-form">Si no se abre WhatsApp, escríbenos directamente al <strong>+34 745 00 25 02</strong>.<br>Se abrirá WhatsApp con tu petición ya escrita. La cita queda <strong>pendiente hasta que Lindas Studio te la confirme</strong>.</p>
     </div>
 </section>
+
+<script>
+    // No permitir días pasados
+    (function(){
+        var hoy = new Date();
+        var mes = String(hoy.getMonth() + 1).padStart(2, '0');
+        var dia = String(hoy.getDate()).padStart(2, '0');
+        document.getElementById('fecha').min = hoy.getFullYear() + '-' + mes + '-' + dia;
+    })();
+
+    function prepararCita(e){
+        var form = document.getElementById('formCita');
+        // Si falta algún dato, avisar y no abrir WhatsApp
+        if (!form.checkValidity()) {
+            e.preventDefault();
+            form.reportValidity();
+            return;
+        }
+        var nombre = document.getElementById('nombre').value.trim();
+        var servicio = document.getElementById('servicio').value;
+        var fecha = document.getElementById('fecha').value;
+        var hora = document.getElementById('hora').value;
+        var comentarios = document.getElementById('comentarios').value.trim();
+
+        var partes = fecha.split('-');
+        var fechaBonita = partes[2] + '/' + partes[1] + '/' + partes[0];
+
+        var msg = 'Hola Lindas Studio, quiero pedir una cita 💅\n\n' +
+                  '👤 Nombre: ' + nombre + '\n' +
+                  '✨ Servicio: ' + servicio + '\n' +
+                  '📅 Día: ' + fechaBonita + '\n' +
+                  '🕐 Hora: ' + hora;
+        if (comentarios) { msg += '\n📝 Comentarios: ' + comentarios; }
+        msg += '\n\n¿Me la podéis confirmar? ¡Gracias!';
+
+        // Se rellena el enlace justo antes de que el navegador lo abra
+        document.getElementById('btnCita').href = 'https://wa.me/34745002502?text=' + encodeURIComponent(msg);
+    }
+</script>
 
 <footer>
     © 2026 Lindas Studio · Zaragoza · Todos los derechos reservados.
