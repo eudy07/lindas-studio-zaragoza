@@ -198,6 +198,7 @@ h2{
     box-shadow: 0 12px 25px rgba(0,0,0,0.08);
     border: 4px solid #fff;
     position: relative;
+    background: #fff;
 }
 
 .galeria img{
@@ -209,6 +210,72 @@ h2{
 }
 
 .galeria-item:hover img{ transform: scale(1.1); }
+
+/* Foto que falta (solo se ve en modo admin) */
+.galeria-falta{
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    color: var(--primary-dark);
+    font-size: 14px;
+    font-weight: 500;
+    background: repeating-linear-gradient(45deg, #fff, #fff 12px, #ffeef6 12px, #ffeef6 24px);
+}
+
+.galeria-vacia{
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #777;
+    font-size: 15px;
+    padding: 30px 10px;
+}
+
+/* ZONA PARA AÑADIR FOTOS (solo con #admin en la dirección) */
+.admin-galeria{
+    max-width: 640px;
+    margin: 30px auto 0;
+    padding: 22px;
+    text-align: center;
+    background: #fff;
+    border: 2px dashed rgba(255, 45, 143, 0.45);
+    border-radius: 24px;
+}
+.admin-galeria[hidden]{ display: none; }
+.admin-galeria p{ font-size: 14px; color: #555; line-height: 1.5; margin-bottom: 14px; }
+.admin-galeria input[type="file"]{ display: none; }
+.btn-fotos{
+    display: inline-block;
+    padding: 13px 30px;
+    background: var(--primary-gradient);
+    color: #fff;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(255, 45, 143, 0.3);
+    transition: transform 0.2s;
+}
+.btn-fotos:hover{ transform: translateY(-2px); }
+.btn-fotos:focus-visible{ outline: 3px solid #9013fe; outline-offset: 3px; }
+
+.btn-borrar{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    border: none;
+    cursor: pointer;
+    background: rgba(0,0,0,0.65);
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+}
+.btn-borrar:hover{ background: #d81b75; }
 
 /* SECCIÓN PRECIOS ESPECTACULAR */
 .categoria{
@@ -425,13 +492,19 @@ footer{
 @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
+@media(max-width:900px){
+    .galeria{ grid-template-columns: repeat(2, 1fr); }
+}
 @media(max-width:700px){
     header h1{ font-size: 40px; }
     nav{ gap: 12px; flex-wrap: wrap; padding: 12px; }
     nav a{ font-size: 13px; }
     .galeria{ grid-template-columns: 1fr; }
-    .galeria img{ height: 300px; }
+    .galeria img, .galeria-falta{ height: 300px; }
     .lista-precios { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
 }
 </style>
 </head>
@@ -482,16 +555,18 @@ footer{
 <!-- GALERÍA -->
 <section id="galeria">
     <h2>Galería de Trabajos</h2>
-    <div class="galeria">
-        <div class="galeria-item">
-            <img src="1lindas.png" alt="Diseño manicura francesa con lunares">
-        </div>
-        <div class="galeria-item">
-            <img src="2linadas.png" alt="Nail art con diseño telaraña y tonos rojos">
-        </div>
-        <div class="galeria-item">
-            <img src="3lindas.png" alt="Esmaltado tono rosado satinado con brillo">
-        </div>
+
+    <!-- Las fotos se dibujan solas desde la lista FOTOS (ver el script de abajo) -->
+    <div class="galeria" id="galeriaGrid"></div>
+
+    <!-- Zona para añadir fotos: solo aparece si la dirección termina en #admin -->
+    <div class="admin-galeria" id="adminGaleria" hidden>
+        <p>
+            <strong>Modo administrador.</strong> Elige fotos PNG o JPG de tu móvil u ordenador y se añaden a la galería.<br>
+            Quedan guardadas <strong>solo en este navegador</strong>. Para que las vea todo el mundo, sube el archivo a la misma carpeta que esta página y añade su nombre a la lista <code>FOTOS</code>.
+        </p>
+        <label class="btn-fotos" for="inputFotos" tabindex="0">➕ Añadir fotos de uñas</label>
+        <input type="file" id="inputFotos" accept="image/png,image/jpeg,image/webp" multiple>
     </div>
 </section>
 
@@ -731,6 +806,141 @@ footer{
         // Se rellena el enlace justo antes de que el navegador lo abra
         document.getElementById('btnCita').href = 'https://wa.me/34745002502?text=' + encodeURIComponent(msg);
     }
+
+    /* ==========================================================
+       GALERÍA DE FOTOS
+       ----------------------------------------------------------
+       Para añadir fotos que vea TODO el mundo:
+       1) Sube el archivo (PNG, JPG o WEBP) a la MISMA carpeta
+          donde está este index.html.
+       2) Escribe su nombre en la lista de abajo, tal cual
+          (mayúsculas, minúsculas y extensión incluidas).
+       ========================================================== */
+    var FOTOS = [
+        { archivo: '1lindas.png',  alt: 'Diseño manicura francesa con lunares' },
+        { archivo: '2linadas.png', alt: 'Nail art con diseño telaraña y tonos rojos' },
+        { archivo: '3lindas.png',  alt: 'Esmaltado tono rosado satinado con brillo' }
+        // , { archivo: 'mi-foto.png', alt: 'Descripción de la foto' }
+    ];
+
+    (function(){
+        var grid  = document.getElementById('galeriaGrid');
+        var admin = location.hash === '#admin';
+        var CLAVE = 'lindas_fotos_extra';
+        var extras = [];
+
+        // Fotos añadidas con el botón (solo en este navegador)
+        try { extras = JSON.parse(localStorage.getItem(CLAVE) || '[]'); } catch (e) { extras = []; }
+
+        if (admin) { document.getElementById('adminGaleria').hidden = false; }
+
+        function guardar(){
+            try { localStorage.setItem(CLAVE, JSON.stringify(extras)); return true; }
+            catch (e) {
+                alert('No hay espacio para guardar más fotos en este navegador. Borra alguna o súbelas a la carpeta de la web.');
+                return false;
+            }
+        }
+
+        function crearItem(src, alt, indiceExtra){
+            var item = document.createElement('div');
+            item.className = 'galeria-item';
+
+            var img = document.createElement('img');
+            img.src = src;
+            img.alt = alt;
+            img.loading = 'lazy';
+            img.onerror = function(){
+                if (admin) {
+                    // En modo admin se ve qué archivo no se encuentra
+                    var falta = document.createElement('div');
+                    falta.className = 'galeria-falta';
+                    falta.textContent = 'No se encuentra «' + src + '». Revisa que el archivo esté en la misma carpeta y que el nombre coincida.';
+                    item.replaceChild(falta, img);
+                } else {
+                    // Para los clientes, la foto rota simplemente no aparece
+                    item.remove();
+                    if (!grid.children.length) { pintarVacia(); }
+                }
+            };
+            item.appendChild(img);
+
+            if (admin && typeof indiceExtra === 'number') {
+                var b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'btn-borrar';
+                b.textContent = '🗑 Quitar';
+                b.onclick = function(){
+                    extras.splice(indiceExtra, 1);
+                    guardar();
+                    pintar();
+                };
+                item.appendChild(b);
+            }
+            return item;
+        }
+
+        function pintarVacia(){
+            if (grid.querySelector('.galeria-vacia')) return;
+            var p = document.createElement('p');
+            p.className = 'galeria-vacia';
+            p.textContent = 'Muy pronto subiremos aquí nuestros últimos trabajos 💅';
+            grid.appendChild(p);
+        }
+
+        function pintar(){
+            grid.innerHTML = '';
+            FOTOS.forEach(function(f){ grid.appendChild(crearItem(f.archivo, f.alt)); });
+            extras.forEach(function(f, i){ grid.appendChild(crearItem(f.src, f.alt, i)); });
+            if (!grid.children.length) { pintarVacia(); }
+        }
+
+        // Reduce la foto antes de guardarla para que quepan muchas
+        function reducir(file){
+            return new Promise(function(resolve, reject){
+                var lector = new FileReader();
+                lector.onerror = reject;
+                lector.onload = function(){
+                    var im = new Image();
+                    im.onerror = reject;
+                    im.onload = function(){
+                        var max = 1000;
+                        var esc = Math.min(1, max / Math.max(im.width, im.height));
+                        var c = document.createElement('canvas');
+                        c.width  = Math.round(im.width * esc);
+                        c.height = Math.round(im.height * esc);
+                        c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+                        resolve(c.toDataURL('image/jpeg', 0.85));
+                    };
+                    im.src = lector.result;
+                };
+                lector.readAsDataURL(file);
+            });
+        }
+
+        document.getElementById('inputFotos').addEventListener('change', function(ev){
+            var archivos = Array.prototype.slice.call(ev.target.files);
+            Promise.all(archivos.map(function(f){
+                return reducir(f).then(function(src){
+                    return { src: src, alt: 'Trabajo de uñas Lindas Studio' };
+                });
+            })).then(function(nuevas){
+                extras = extras.concat(nuevas);
+                if (!guardar()) { extras = extras.slice(0, extras.length - nuevas.length); }
+                pintar();
+                ev.target.value = '';
+            }).catch(function(){
+                alert('No se pudo leer alguna de las fotos. Prueba con archivos PNG o JPG.');
+            });
+        });
+
+        // Permite abrir el selector con teclado
+        document.querySelector('label[for="inputFotos"]').addEventListener('keydown', function(e){
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); document.getElementById('inputFotos').click(); }
+        });
+
+        pintar();
+    })();
 </script>
 
 <footer>
